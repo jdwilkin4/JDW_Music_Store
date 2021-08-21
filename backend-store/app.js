@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 8000;
+const pages = require('./routes/page-routes');
+const users = require('./routes/user');
 
 // connect our database
 mongoose.connect(mongoUri, { useUnifiedTopology: true, useNewUrlParser: true });
@@ -15,9 +17,10 @@ database.once('open', () => {
     console.log('mongo database connected')
 });
 
-app.get('/', (req, res) => {
-    res.send('testing express app')
-});
+//routes
+app.use(pages);
+app.use('/user', users);
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
