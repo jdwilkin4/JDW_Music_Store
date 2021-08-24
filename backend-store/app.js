@@ -1,13 +1,15 @@
 require('dotenv').config();
 const mongoUri = process.env.MONGO_URI;
+const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 8000;
+const cors = require('cors');
 const pages = require('./routes/page-routes');
 const users = require('./routes/user');
 
-// connect our database
 mongoose.connect(mongoUri, { useUnifiedTopology: true, useNewUrlParser: true });
 
 // check for proper connection
@@ -17,9 +19,15 @@ database.once('open', () => {
     console.log('mongo database connected')
 });
 
+//middleware
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
+
 //routes
 app.use(pages);
-app.use('/user', users);
+app.use(users);
 
 
 app.listen(port, () => {

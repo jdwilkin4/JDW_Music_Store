@@ -6,33 +6,33 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
     name: {
-        String,
+        type: String,
         trim: true,
         required: true,
         maxlength: 32
     },
     email: {
-        String,
+        type: String,
         trim: true,
         required: true,
         maxlength: 32,
         unique: true
     },
     hashed_password: {
-        String,
+        type: String,
         required: true
     },
     about_profile: {
-        String,
+        type: String,
         trim: true
     },
-    salt: true,
+    salt: String,
     role: {
-        Number,
+        type: Number,
         default: 0
     },
     history: {
-        Array,
+        type: Array,
         default: []
     }
 },
