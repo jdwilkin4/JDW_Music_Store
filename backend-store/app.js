@@ -1,5 +1,6 @@
 require('dotenv').config();
 const mongoUri = process.env.MONGO_URI;
+const expressValidator = require('express-validator');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -23,6 +24,7 @@ database.once('open', () => {
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
+app.use(expressValidator())
 app.use(cors());
 
 //routes
